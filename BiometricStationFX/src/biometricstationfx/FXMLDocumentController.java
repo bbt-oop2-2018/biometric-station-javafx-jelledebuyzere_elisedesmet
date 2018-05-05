@@ -40,10 +40,10 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
     }
 
     @Override
-    public void messageArrived(String channel, String message) {
+    public void messageArrived(String channel, String message) { //TODO: switch statement
         if (channel.equals("Temperature")) {
-
             System.out.println("Message: " + message);
+            area.setText(message);
 
         }
     }
