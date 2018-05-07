@@ -14,7 +14,7 @@
          <children>
             <LineChart layoutX="337.0" layoutY="289.0" prefHeight="222.0" prefWidth="362.0" title="Temperature">
                <xAxis>
-                  <CategoryAxis side="BOTTOM" />
+                  <NumberAxis side="BOTTOM" />
                </xAxis>
                <yAxis>
                   <NumberAxis side="LEFT" />
@@ -22,7 +22,7 @@
             </LineChart>
             <LineChart layoutX="337.0" layoutY="77.0" prefHeight="221.0" prefWidth="361.0" title="Heartbeat">
                <xAxis>
-                  <CategoryAxis side="BOTTOM" />
+                  <NumberAxis side="BOTTOM" />
                </xAxis>
                <yAxis>
                   <NumberAxis side="LEFT" />

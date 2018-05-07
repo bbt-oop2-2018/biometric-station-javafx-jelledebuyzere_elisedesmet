@@ -55,6 +55,7 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("hello world!");
         serviceTemp.setMessageHandler(this);
         serviceAcc.setMessageHandler(this);
         servicePulse.setMessageHandler(this);
@@ -71,11 +72,11 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
 //        System.out.println("this is a parsed data " + temp);
 //        temperatureValues.getData().add(new XYChart.Data(xValue, temp));
 //        xValue += 0.1;
-        
+        System.out.println("temperature reading");
 
         switch (channel) { //TODO: testing (without break; it will run but after a couple of seconds it will crash and give an arrayoutofbounds exception
             case "Temperature":
-                 //test
+                 System.out.println("temperature reading");//test
                 tempField.getText().trim();
                 tempField.setText(message + "°C");
                 
@@ -87,7 +88,7 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
                 heartField.getText().trim();
                 heartField.setText(message + "BPM");
             case "default":
-                tempField.getText().trim();
+                //tempField.getText().trim();
                 break;
                 
         }
