@@ -12,9 +12,9 @@
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="573.0" prefWidth="805.0">
          <children>
-            <LineChart layoutX="337.0" layoutY="289.0" prefHeight="222.0" prefWidth="362.0" title="Temperature">
+            <LineChart fx:id="temperatureChart" layoutX="337.0" layoutY="289.0" prefHeight="222.0" prefWidth="362.0" title="Temperature">
                <xAxis>
-                  <NumberAxis side="BOTTOM" />
+                  <CategoryAxis side="BOTTOM" />
                </xAxis>
                <yAxis>
                   <NumberAxis side="LEFT" />
@@ -22,7 +22,7 @@
             </LineChart>
             <LineChart layoutX="337.0" layoutY="77.0" prefHeight="221.0" prefWidth="361.0" title="Heartbeat">
                <xAxis>
-                  <NumberAxis side="BOTTOM" />
+                  <CategoryAxis side="BOTTOM" />
                </xAxis>
                <yAxis>
                   <NumberAxis side="LEFT" />
@@ -64,9 +64,9 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="161.0" layoutY="348.0" />
-            <TextField layoutX="161.0" layoutY="392.0" />
-            <TextField layoutX="161.0" layoutY="436.0" />
+            <TextField fx:id="accXField" layoutX="161.0" layoutY="348.0" />
+            <TextField fx:id="accYField" layoutX="161.0" layoutY="392.0" />
+            <TextField fx:id="accZField" layoutX="161.0" layoutY="436.0" />
             <TextField fx:id="tempField" editable="false" layoutX="161.0" layoutY="113.0" />
             <TextField fx:id="heartField" editable="false" layoutX="161.0" layoutY="166.0" />
          </children>
