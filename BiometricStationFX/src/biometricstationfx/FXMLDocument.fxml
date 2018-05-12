@@ -12,12 +12,12 @@
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="573.0" prefWidth="805.0">
          <children>
-            <LineChart fx:id="temperatureChart" layoutX="337.0" layoutY="289.0" prefHeight="222.0" prefWidth="362.0" title="Temperature">
+            <LineChart fx:id="temperatureChart" layoutX="337.0" layoutY="294.0" prefHeight="262.0" prefWidth="427.0" title="Temperature">
                <xAxis>
-                  <CategoryAxis side="BOTTOM" />
+                  <CategoryAxis side="BOTTOM" fx:id="x" />
                </xAxis>
                <yAxis>
-                  <NumberAxis side="LEFT" />
+                  <NumberAxis fx:id="y" side="LEFT" />
                </yAxis>
             </LineChart>
             <LineChart layoutX="337.0" layoutY="77.0" prefHeight="221.0" prefWidth="361.0" title="Heartbeat">
