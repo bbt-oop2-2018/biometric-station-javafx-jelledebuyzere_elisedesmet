@@ -8,14 +8,11 @@ package biometricstationfx;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import mqttservice.*;
 
@@ -24,9 +21,8 @@ import mqttservice.*;
  * @author jelle
  */
 public class FXMLDocumentController implements Initializable, IMqttMessageHandler {
+//TODO: kruisje is einde van applicatie!!!!!!
 
-    @FXML
-    private Label label;
     @FXML
     private TextField tempField;
     @FXML
@@ -44,11 +40,7 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
     @FXML
     private CategoryAxis x;
     @FXML
-    private NumberAxis y;
-    @FXML
     private CategoryAxis hx;
-    @FXML
-    private NumberAxis hy;
 
     //for the linecharts
     XYChart.Series<String, Number> temperatureValues = new XYChart.Series();
@@ -74,6 +66,7 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
         System.out.println("Welcome to our Biometric datacenter!");
         x.setLabel("Seconds");
         hx.setLabel("Seconds");
+
         temperatureValues.setName("Temperature Data");
         heartbeatValues.setName("Heartbeat Data");
 
@@ -93,12 +86,13 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
             case "Temperature":
                 Platform.runLater(() -> {
                     tempField.setText(message + "°C");
-                    
+
                     temperatureValues.getData().add(new XYChart.Data<>(Integer.toString(xValue), Double.parseDouble(message)));
                     if (checkValue(xValue)) {
                         temperatureValues.getData().remove(0);
                     }
                     xValue++;
+
                 });
                 break;
 
@@ -117,6 +111,7 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
                         heartbeatValues.getData().remove(0);
                     }
                     xHeart++;
+                    System.out.println("check?");
                 });
                 break;
             case "default":
