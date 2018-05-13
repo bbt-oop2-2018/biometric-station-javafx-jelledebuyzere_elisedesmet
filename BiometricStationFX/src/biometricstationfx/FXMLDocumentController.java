@@ -38,22 +38,29 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
     @FXML
     private TextField accZField;
     @FXML
-    private LineChart temperatureChart;
+    private LineChart<String, Number> temperatureChart;
+    @FXML
+    private LineChart<String, Number> heartbeatChart;
     @FXML
     private CategoryAxis x;
     @FXML
     private NumberAxis y;
+    @FXML
+    private CategoryAxis hx;
+    @FXML
+    private NumberAxis hy;
 
-    XYChart.Series temperatureValues = new XYChart.Series();
+    //for the linecharts
+    XYChart.Series<String, Number> temperatureValues = new XYChart.Series();
+    XYChart.Series<String, Number> heartbeatValues = new XYChart.Series();
 
-    private double temp;
-    private double xValue = 1;
+    private int xValue = 0;
+    private int xHeart = 0;
     String[] data;
 
     private Service serviceTemp;
     private Service serviceAcc;
     private Service servicePulse;
-    private BioData bioData;
 
     public FXMLDocumentController() {
         serviceTemp = new Service("Jelle", "Temperature");
@@ -62,20 +69,21 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
 
     }
 
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("Welcome to our Biometric datacenter!");
+        x.setLabel("Seconds");
+        hx.setLabel("Seconds");
+        temperatureValues.setName("Temperature Data");
+        heartbeatValues.setName("Heartbeat Data");
+
         serviceTemp.setMessageHandler(this);
         serviceAcc.setMessageHandler(this);
         servicePulse.setMessageHandler(this);
-        //TEST
+
+        heartbeatChart.getData().add(heartbeatValues); //updates every second
+        temperatureChart.getData().add(temperatureValues);
+
     }
 
     @Override
@@ -83,9 +91,15 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
 
         switch (channel) {
             case "Temperature":
-                tempField.setText(message + "°C");
-                bioData.setTempData(Double.parseDouble(message));
-                System.out.println(bioData.getTempData());
+                Platform.runLater(() -> {
+                    tempField.setText(message + "°C");
+                    
+                    temperatureValues.getData().add(new XYChart.Data<>(Integer.toString(xValue), Double.parseDouble(message)));
+                    if (checkValue(xValue)) {
+                        temperatureValues.getData().remove(0);
+                    }
+                    xValue++;
+                });
                 break;
 
             case "Accelerometer":
@@ -96,10 +110,21 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
                 break;
 
             case "Heartpulse":
-                heartField.setText(message + " BPM");
+                Platform.runLater(() -> {
+                    heartField.setText(message + " BPM");
+                    heartbeatValues.getData().add(new XYChart.Data<>(Integer.toString(xHeart), Integer.parseInt(message)));
+                    if (checkValue(xHeart)) {
+                        heartbeatValues.getData().remove(0);
+                    }
+                    xHeart++;
+                });
                 break;
             case "default":
                 break;
         }
+    }
+
+    public boolean checkValue(int number) {
+        return number > 10;
     }
 }

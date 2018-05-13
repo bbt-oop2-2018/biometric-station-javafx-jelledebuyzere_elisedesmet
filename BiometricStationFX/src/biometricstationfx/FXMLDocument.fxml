@@ -10,9 +10,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="322.0" prefWidth="579.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="biometricstationfx.FXMLDocumentController">
    <children>
-      <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="573.0" prefWidth="805.0">
+      <AnchorPane layoutX="5.0" layoutY="5.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="573.0" prefWidth="805.0">
          <children>
-            <LineChart fx:id="temperatureChart" layoutX="337.0" layoutY="294.0" prefHeight="262.0" prefWidth="427.0" title="Temperature">
+            <LineChart fx:id="temperatureChart" layoutX="341.0" layoutY="38.0" prefHeight="274.0" prefWidth="464.0" title="Temperature">
                <xAxis>
                   <CategoryAxis side="BOTTOM" fx:id="x" />
                </xAxis>
@@ -20,12 +20,12 @@
                   <NumberAxis fx:id="y" side="LEFT" />
                </yAxis>
             </LineChart>
-            <LineChart layoutX="337.0" layoutY="77.0" prefHeight="221.0" prefWidth="361.0" title="Heartbeat">
+            <LineChart fx:id="heartbeatChart" layoutX="341.0" layoutY="307.0" prefHeight="258.0" prefWidth="464.0" title="Heartbeat">
                <xAxis>
-                  <CategoryAxis side="BOTTOM" />
+                  <CategoryAxis fx:id="hx" side="BOTTOM" />
                </xAxis>
                <yAxis>
-                  <NumberAxis side="LEFT" />
+                  <NumberAxis fx:id="hy" maxHeight="1.7976931348623157E308" side="LEFT" />
                </yAxis>
             </LineChart>
             <Label layoutX="139.0" layoutY="292.0" text="Accelerometer" underline="true">
@@ -33,7 +33,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="260.0" layoutY="14.0" text="Biometric Station" underline="true">
+            <Label layoutX="254.0" text="Biometric Station" underline="true">
                <font>
                   <Font size="30.0" />
                </font>
