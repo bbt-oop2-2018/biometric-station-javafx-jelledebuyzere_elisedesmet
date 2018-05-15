@@ -18,10 +18,9 @@ import mqttservice.*;
 
 /**
  *
- * @author jelle
+ * @author Jelle
  */
 public class FXMLDocumentController implements Initializable, IMqttMessageHandler {
-//TODO: kruisje is einde van applicatie!!!!!!
 
     @FXML
     private TextField tempField;
@@ -42,7 +41,7 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
     @FXML
     private CategoryAxis hx;
 
-    //for the linecharts
+    //Variables for the linechart.
     XYChart.Series<String, Number> temperatureValues = new XYChart.Series();
     XYChart.Series<String, Number> heartbeatValues = new XYChart.Series();
 
@@ -55,9 +54,9 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
     private Service servicePulse;
 
     public FXMLDocumentController() {
-        serviceTemp = new Service("Jelle", "Temperature");
-        serviceAcc = new Service("Jelle", "Accelerometer");
-        servicePulse = new Service("Jelle", "Heartpulse");
+        serviceTemp = new Service("Elise", "Temperature");
+        serviceAcc = new Service("Elise", "Accelerometer");
+        servicePulse = new Service("Elise", "Heartpulse");
 
     }
 
@@ -74,7 +73,7 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
         serviceAcc.setMessageHandler(this);
         servicePulse.setMessageHandler(this);
 
-        heartbeatChart.getData().add(heartbeatValues); //updates every second
+        heartbeatChart.getData().add(heartbeatValues); //Data updates every second.
         temperatureChart.getData().add(temperatureValues);
 
     }
@@ -111,7 +110,6 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
                         heartbeatValues.getData().remove(0);
                     }
                     xHeart++;
-                    System.out.println("check?");
                 });
                 break;
             case "default":

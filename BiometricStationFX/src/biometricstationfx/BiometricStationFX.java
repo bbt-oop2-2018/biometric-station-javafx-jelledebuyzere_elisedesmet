@@ -5,8 +5,6 @@
  */
 package biometricstationfx;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -18,7 +16,7 @@ import javafx.stage.WindowEvent;
 
 /**
  *
- * @author jelle
+ * @author Jelle
  */
 public class BiometricStationFX extends Application {
 
@@ -32,7 +30,6 @@ public class BiometricStationFX extends Application {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent e) {
-
                 Platform.exit();
                 System.exit(0);
             }
