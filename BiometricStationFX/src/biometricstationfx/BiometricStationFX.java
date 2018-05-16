@@ -27,13 +27,7 @@ public class BiometricStationFX extends Application {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent e) {
-                Platform.exit();
-                System.exit(0);
-            }
-        });
+
         stage.show();
     }
 

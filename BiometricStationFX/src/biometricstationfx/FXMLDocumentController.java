@@ -13,7 +13,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import mqttservice.*;
 
 /**
@@ -21,7 +24,9 @@ import mqttservice.*;
  * @author Jelle
  */
 public class FXMLDocumentController implements Initializable, IMqttMessageHandler {
-
+    
+    @FXML
+    private AnchorPane pane;
     @FXML
     private TextField tempField;
     @FXML
@@ -75,6 +80,8 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
 
         heartbeatChart.getData().add(heartbeatValues); //Data updates every second.
         temperatureChart.getData().add(temperatureValues);
+        
+        disconnectClientOnClose();
 
     }
 
@@ -84,6 +91,7 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
         switch (channel) {
             case "Temperature":
                 Platform.runLater(() -> {
+                    /* If you need to update a GUI component from a non-GUI thread, you can use that to put your update in a queue and it will be handle by the GUI thread as soon as possible. */
                     tempField.setText(message + "°C");
 
                     temperatureValues.getData().add(new XYChart.Data<>(Integer.toString(xValue), Double.parseDouble(message)));
@@ -105,6 +113,7 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
             case "Heartpulse":
                 Platform.runLater(() -> {
                     heartField.setText(message + " BPM");
+
                     heartbeatValues.getData().add(new XYChart.Data<>(Integer.toString(xHeart), Integer.parseInt(message)));
                     if (checkValue(xHeart)) {
                         heartbeatValues.getData().remove(0);
@@ -119,5 +128,25 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
 
     public boolean checkValue(int number) {
         return number > 10;
+    }
+
+    //does not work completely
+    private void disconnectClientOnClose() {
+        // Source: https://stackoverflow.com/a/30910015
+        pane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+            if (oldScene == null && newScene != null) {
+                // scene is set for the first time. Now its the time to listen stage changes.
+                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+                    if (oldWindow == null && newWindow != null) {
+                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
+                        ((Stage) newWindow).setOnCloseRequest((event) -> {
+                            serviceTemp.disconnect();
+                            servicePulse.disconnect();
+                            serviceAcc.disconnect();
+                        });
+                    }
+                });
+            }
+        });
     }
 }
