@@ -23,7 +23,7 @@ import mqttservice.*;
  * @author Jelle
  */
 public class FXMLDocumentController implements Initializable, IMqttMessageHandler {
-    
+
     @FXML
     private AnchorPane pane;
     @FXML
@@ -79,7 +79,7 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
 
         heartbeatChart.getData().add(heartbeatValues); //Data updates every second.
         temperatureChart.getData().add(temperatureValues);
-        
+
         disconnectClientOnClose();
 
     }
@@ -103,10 +103,12 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
                 break;
 
             case "Accelerometer":
-                data = message.split(";");
-                accXField.setText(data[0]);
-                accYField.setText(data[1]);
-                accZField.setText(data[2]);
+                Platform.runLater(() -> {
+                    data = message.split(";");
+                    accXField.setText(data[0]);
+                    accYField.setText(data[1]);
+                    accZField.setText(data[2]);
+                });
                 break;
 
             case "Heartpulse":
@@ -129,7 +131,6 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
         return number > 10;
     }
 
-    //does not work completely
     private void disconnectClientOnClose() {
         // Source: https://stackoverflow.com/a/30910015
         pane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
