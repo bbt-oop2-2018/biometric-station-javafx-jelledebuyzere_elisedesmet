@@ -46,12 +46,13 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
     private CategoryAxis hx;
 
     //Variables for the linechart.
-    XYChart.Series<String, Number> temperatureValues = new XYChart.Series();
-    XYChart.Series<String, Number> heartbeatValues = new XYChart.Series();
+    private XYChart.Series<String, Number> temperatureValues = new XYChart.Series();
+    private XYChart.Series<String, Number> heartbeatValues = new XYChart.Series();
 
+    private final int NUMBERS_DISPLAYED_ON_CHARTS = 10;
     private int xValue = 0;
     private int xHeart = 0;
-    String[] data;
+    private String[] data;
 
     private Service serviceTemp;
     private Service serviceAcc;
@@ -128,7 +129,7 @@ public class FXMLDocumentController implements Initializable, IMqttMessageHandle
     }
 
     public boolean checkValue(int number) {
-        return number > 10;
+        return number > NUMBERS_DISPLAYED_ON_CHARTS;
     }
 
     private void disconnectClientOnClose() {
